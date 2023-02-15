@@ -8,18 +8,18 @@ import repositories.author_repository as author_repository
 book_repository.delete_all()
 author_repository.delete_all()
 
-author1 = Author("Stephen King")
-book_repository.save(author1)
-author2 = Author("Franz Kafka")
-author_repository.save(author2)
+author_1 = Author("Stephen", "King")
+book_repository.save(author_1)
+author_2 = Author("Franz", "Kafka")
+author_repository.save(author_2)
 
 author_repository.select_all()
 
-book1 = Book("The Shining", author1, "Gothic Novel", True)
-book_repository.save(book1)
+book_1 = Book("The Shining", 100, author_1, "Gothic Novel", True, author_1)
+book_repository.save(book_1)
 
-book2 = Book("The Stoker", author2, "Fiction", False)
-book_repository.save(book2)
+book_2 = Book("The Stoker", 101, author_2, "Fiction", False, author_2)
+book_repository.save(book_2)
 
 
 pdb.set_trace()

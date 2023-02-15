@@ -1,9 +1,7 @@
 from db.run_sql import run_sql
-
-from models.book import Book
 from models.author import Author
+from models.book import Book
 import repositories.author_repository as author_repository
-
 
 def save(book):
     sql = "INSERT INTO books (title, pages, genre, read, author_id) VALUES (%s, %s, %s, %s, %s) RETURNING *"
@@ -22,10 +20,9 @@ def select_all():
 
     for row in results:
         author = author_repository.select(row['author_id'])
-        book = Book(row['title'], row['pages'], row['genre'], row['read'], author, row['id'] )
+        book = Book(row['title'], row['pages'], row['genre'], row['read'], author, row['id'])
         books.append(book)
     return books
-
 
 
 def select(id):
@@ -34,13 +31,10 @@ def select(id):
     values = [id]
     results = run_sql(sql, values)
 
-    # checking if the list returned by `run_sql(sql, values)` is empty. Empty lists are 'fasly' 
-    # Could alternativly have..
-    # if len(results) > 0 
     if results:
         result = results[0]
         author = author_repository.select(result['author_id'])
-        book = Book(result['title'], reult['pages'], result['genre'], result['read'], author, result['id'] )
+        book = Book(result['title'], result['pages'], result['genre'], result['read'], author, result['id'] )
     return book
 
 
@@ -55,8 +49,8 @@ def delete(id):
     run_sql(sql, values)
 
 
-def update(book):
-    sql = "UPDATE books SET (title, pages, genre, read, author_id) = (%s, %s, %s, %s, %s) WHERE id = %s"
-    values = [book.title, book.pages, book.genre, book.read, book.author.id, book.id]
-    print(values)
-    run_sql(sql, values)
+# def update(book):
+#     sql = "UPDATE books SET (title, pages, genre, read, author_id) = (%s, %s, %s, %s, %s) WHERE id = %s"
+#     values = [book.title, book.pages, book.genre, book.read, book.author.id, book.id]
+#     print(values)
+#     run_sql(sql, values)
