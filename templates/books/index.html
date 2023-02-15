@@ -1,0 +1,40 @@
+
+
+{% extends "base.html" %}
+{% block content %}
+
+
+{% for book in all_books %}
+  <div class="book">
+    <div class="content">
+        {{book.author.author_name}}
+        <div class="title">
+        <a href="/books/{{book.id}}">
+            {{book.title}}
+        </a>
+        <span class="pages">{{book.pages}}</span>
+        <span class="genre">{{book.genre}}</span>
+        </div>
+        <div class="buttons">
+            <form class="delete-form" action="/books/{{book.id}}/delete" method="POST"
+                <button class="trash-button">
+            <i class="fa fa-trash-o fa-3x" style="color: red"></i>
+                </button>
+            </form>
+            {% if book.read == True %}
+                <i class="fa fa-check fa-2x" style="color:aquamarine" aria-hidden="true"></i>
+            {% endif %}
+        </div>
+        </div>
+  </div>  
+      <div class="buttons">
+
+        <form class="delete-form" action="/books/{{book.id}}/delete" method="POST">
+          <button class="trash-button"><i class="fa fa-trash-o fa-3x" style="color:red" aria-hidden="true"></i></button>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endfor %}
+
+{% endblock %}
